@@ -1,75 +1,127 @@
-Always follow the instructions in plan.md. When I say "go", find the next unmarked test in plan.md, implement the test, then implement only enough code to make that test pass.
+# CLAUDE.md
 
-# ROLE AND EXPERTISE
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-You are a senior software engineer who follows Kent Beck's Test-Driven Development (TDD) and Tidy First principles. Your purpose is to guide development following these methodologies precisely.
+## プロジェクト概要
 
-# CORE DEVELOPMENT PRINCIPLES
+日本語文章校正システム - AIとルールベース技術を組み合わせた高精度な文章校正アプリケーション
 
-- Always follow the TDD cycle: Red → Green → Refactor
-- Write the simplest failing test first
-- Implement the minimum code needed to make tests pass
-- Refactor only after tests are passing
-- Follow Beck's "Tidy First" approach by separating structural changes from behavioral changes
-- Maintain high code quality throughout development
+## 開発コマンド
 
-# TDD METHODOLOGY GUIDANCE
+### 環境構築
+```bash
+# Docker環境起動
+docker-compose up -d
 
-- Start by writing a failing test that defines a small increment of functionality
-- Use meaningful test names that describe behavior (e.g., "shouldSumTwoPositiveNumbers")
-- Make test failures clear and informative
-- Write just enough code to make the test pass - no more
-- Once tests pass, consider if refactoring is needed
-- Repeat the cycle for new functionality
-- When fixing a defect, first write an API-level failing test then write the smallest possible test that replicates the problem then get both tests to pass.
+# 依存関係インストール
+make install
 
-# TIDY FIRST APPROACH
+# 開発環境起動
+make dev
+```
 
-- Separate all changes into two distinct types:
-  1. STRUCTURAL CHANGES: Rearranging code without changing behavior (renaming, extracting methods, moving code)
-  2. BEHAVIORAL CHANGES: Adding or modifying actual functionality
-- Never mix structural and behavioral changes in the same commit
-- Always make structural changes first when both are needed
-- Validate structural changes do not alter behavior by running tests before and after
+### テスト・品質チェック
+```bash
+# 全テスト実行
+make test
 
-# COMMIT DISCIPLINE
+# バックエンドテスト
+cd backend && pytest
 
-- Only commit when:
-  1. ALL tests are passing
-  2. ALL compiler/linter warnings have been resolved
-  3. The change represents a single logical unit of work
-  4. Commit messages clearly state whether the commit contains structural or behavioral changes
-- Use small, frequent commits rather than large, infrequent ones
+# フロントエンドテスト  
+cd frontend && npm test
 
-# CODE QUALITY STANDARDS
+# リンター実行
+make lint
 
-- Eliminate duplication ruthlessly
-- Express intent clearly through naming and structure
-- Make dependencies explicit
-- Keep methods small and focused on a single responsibility
-- Minimize state and side effects
-- Use the simplest solution that could possibly work
+# コード整形
+make format
+```
 
-# REFACTORING GUIDELINES
+### 個別起動
+```bash
+# バックエンド（FastAPI）
+cd backend && uvicorn app.main:app --reload
 
-- Refactor only when tests are passing (in the "Green" phase)
-- Use established refactoring patterns with their proper names
-- Make one refactoring change at a time
-- Run tests after each refactoring step
-- Prioritize refactorings that remove duplication or improve clarity
+# フロントエンド（Next.js）
+cd frontend && npm run dev
+```
 
-# EXAMPLE WORKFLOW
+## アーキテクチャ
 
-When approaching a new feature:
+### 技術スタック
+- **フロントエンド**: React/Next.js + TypeScript + Chakra UI
+- **バックエンド**: Python/FastAPI + SQLAlchemy
+- **データベース**: PostgreSQL
+- **キャッシュ**: Redis
+- **AI/ML**: HuggingFace Transformers + 日本語BERT
+- **インフラ**: Docker + Docker Compose
 
-1. Write a simple failing test for a small part of the feature
-2. Implement the bare minimum to make it pass
-3. Run tests to confirm they pass (Green)
-4. Make any necessary structural changes (Tidy First), running tests after each change
-5. Commit structural changes separately
-6. Add another test for the next small increment of functionality
-7. Repeat until the feature is complete, committing behavioral changes separately from structural ones
+### ディレクトリ構造
+```
+proofreading_app/
+├── backend/              # Python/FastAPI バックエンド
+│   ├── app/
+│   │   ├── api/         # API エンドポイント
+│   │   ├── core/        # 設定・認証・ログ
+│   │   ├── models/      # データベースモデル
+│   │   ├── services/    # ビジネスロジック
+│   │   └── utils/       # ユーティリティ
+│   ├── tests/           # テスト
+│   └── requirements.txt # Python依存関係
+├── frontend/            # React/Next.js フロントエンド
+│   ├── src/
+│   │   ├── components/  # UIコンポーネント
+│   │   ├── pages/       # ページ
+│   │   ├── hooks/       # カスタムフック
+│   │   ├── services/    # API通信
+│   │   └── utils/       # ユーティリティ
+│   └── package.json     # Node.js依存関係
+├── scripts/             # データベース初期化等
+└── docs/                # ドキュメント
+```
 
-Follow this process precisely, always prioritizing clean, well-tested code over quick implementation.
+### 主要機能
+1. **ルールベースエンジン**: パターンマッチング校正
+2. **AIエンジン**: BERT-based 文脈校正
+3. **統合処理層**: 両エンジンの結果統合
+4. **リアルタイムUI**: WebSocket対応校正インターフェース
 
-Always write one test at a time, make it run, then improve structure. Always run all the tests (except long-running tests) each time.
+## 開発ガイドライン
+
+### ブランチ戦略
+- `main`: 本番環境
+- `develop`: 開発統合
+- `feature/*`: 機能開発
+- `hotfix/*`: 緊急修正
+
+### コーディング規約
+- **Python**: Black + isort + flake8 + mypy
+- **TypeScript**: ESLint + Prettier
+- **コミット**: Conventional Commits形式
+
+### テスト方針
+- **バックエンド**: pytest + coverage 90%以上
+- **フロントエンド**: Jest + React Testing Library
+- **E2E**: 主要フローのみ
+
+## 環境変数
+
+主要な環境変数（詳細は.env.exampleを参照）:
+- `DATABASE_URL`: PostgreSQL接続文字列
+- `REDIS_URL`: Redis接続文字列  
+- `SECRET_KEY`: JWT署名キー
+- `MODEL_PATH`: AIモデル格納パス
+
+## トラブルシューティング
+
+### よくある問題
+1. **Docker起動失敗**: `make clean`でクリーンアップ後再起動
+2. **依存関係エラー**: `make install`で再インストール
+3. **ポート競合**: docker-compose.ymlのポート番号変更
+4. **AIモデル読み込み失敗**: models/ディレクトリの権限確認
+
+### パフォーマンス
+- データベースクエリは適切にインデックス使用
+- AIモデル推論結果はRedisキャッシュ活用
+- フロントエンドは遅延読み込み・仮想化実装
