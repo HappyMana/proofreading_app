@@ -1,0 +1,104 @@
+rules:
+  # 助詞誤用チェック
+  particle_errors:
+    name: "助詞誤用修正"
+    category: "grammar"
+    priority: 1
+    patterns:
+      - pattern: "学校は行く"
+        replacement: "学校に行く"
+        description: "助詞の誤用（は→に）"
+      - pattern: "本は読む"
+        replacement: "本を読む"
+        description: "助詞の誤用（は→を）"
+      - pattern: "友達は会う"
+        replacement: "友達に会う"
+        description: "助詞の誤用（は→に）"
+      - pattern: "テレビは見る"
+        replacement: "テレビを見る"
+        description: "助詞の誤用（は→を）"
+
+  # 敬語・丁寧語チェック
+  keigo_errors:
+    name: "敬語・丁寧語修正"
+    category: "grammar"
+    priority: 2
+    patterns:
+      - pattern: "いらっしゃいますか"
+        replacement: "いらっしゃいますか"
+        description: "正しい敬語"
+        type: "check_only"
+      - pattern: "お疲れ様でした"
+        replacement: "お疲れさまでした"
+        description: "正しい敬語表現"
+      - pattern: "すいません"
+        replacement: "すみません"
+        description: "正しい謝罪表現"
+      - pattern: "させて頂"
+        replacement: "させていただ"
+        description: "敬語表現の修正"
+
+  # 語順チェック
+  word_order:
+    name: "語順修正"
+    category: "grammar"
+    priority: 3
+    patterns:
+      - pattern: "昨日に行った"
+        replacement: "昨日行った"
+        description: "時を表す語の語順"
+      - pattern: "とても大変に難しい"
+        replacement: "とても難しく大変"
+        description: "形容詞の語順"
+      - pattern: "明日の朝に早く"
+        replacement: "明日の朝早く"
+        description: "副詞の語順"
+
+  # 文体統一
+  style_consistency:
+    name: "文体統一"
+    category: "grammar"
+    priority: 4
+    patterns:
+      - pattern: "である。ですます。"
+        replacement: "である。である。"
+        description: "文体の統一（である調）"
+        type: "check_pattern"
+      - pattern: "だ。です。"
+        replacement: "です。です。"
+        description: "文体の統一（ですます調）"
+        type: "check_pattern"
+
+  # 修飾語チェック
+  modifier_errors:
+    name: "修飾語関係修正"
+    category: "grammar"
+    priority: 5
+    patterns:
+      - pattern: "大きい犬の声"
+        replacement: "大きな犬の声"
+        description: "形容詞の修飾関係"
+      - pattern: "高い建物の窓"
+        replacement: "高い建物の窓"
+        description: "正しい修飾関係"
+        type: "check_only"
+      - pattern: "美しい花の香り"
+        replacement: "美しい花の香り"
+        description: "正しい修飾関係"
+        type: "check_only"
+
+  # 重複助詞
+  duplicate_particles:
+    name: "重複助詞修正"
+    category: "grammar"
+    priority: 6
+    patterns:
+      - pattern: "私はは"
+        replacement: "私は"
+        description: "助詞の重複"
+      - pattern: "学校でで"
+        replacement: "学校で"
+        description: "助詞の重複"
+      - pattern: "本をを"
+        replacement: "本を"
+        description: "助詞の重複"
