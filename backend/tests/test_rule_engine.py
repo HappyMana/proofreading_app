@@ -43,6 +43,43 @@ def test_grammar_integration():
     assert "すみません" in corrected
 
 
+def test_ra_nuki_correction():
+    """ら抜き言葉修正テスト"""
+    engine = RuleEngine()
+    text = "このケーキは食べれる"
+    
+    corrections = engine.check_text(text)
+    assert len(corrections) > 0
+    
+    # 修正適用
+    corrected = engine.apply_corrections(text, corrections)
+    assert "食べられる" in corrected
+
+
+def test_duplication_correction():
+    """重複表現修正テスト"""
+    engine = RuleEngine()
+    text = "頭痛が痛いです"
+    
+    corrections = engine.check_text(text)
+    assert len(corrections) > 0
+    
+    corrected = engine.apply_corrections(text, corrections)
+    assert "頭痛がする" in corrected
+
+
+def test_formatting_correction():
+    """表記統一テスト"""
+    engine = RuleEngine()
+    text = "結果は（成功）でした"
+    
+    corrections = engine.check_text(text)
+    assert len(corrections) > 0
+    
+    corrected = engine.apply_corrections(text, corrections)
+    assert "(成功)" in corrected
+
+
 def test_ai_processing_recommendation():
     """AI処理推奨判定テスト"""
     engine = RuleEngine()
@@ -77,6 +114,16 @@ def test_multiple_corrections():
     # 重複助詞が修正されている
     assert "私は学校" in corrected
     assert "本を読みます" in corrected
+    
+    # 従来のルールベーステストも含める
+    text2 = "食べれるケーキで頭痛が痛い（笑）"
+    corrections2 = engine.check_text(text2)
+    assert len(corrections2) >= 3  # 食べれる、頭痛が痛い、（）
+    
+    corrected2 = engine.apply_corrections(text2, corrections2)
+    assert "食べられる" in corrected2
+    assert "頭痛がする" in corrected2
+    assert "(笑)" in corrected2
 
 
 def test_correction_position_integrity():
@@ -108,6 +155,12 @@ def test_no_corrections_needed():
     # 基本的には修正が不要か、低いconfidenceの修正のみ
     high_confidence_corrections = [c for c in corrections if c.confidence >= 0.8]
     assert len(high_confidence_corrections) == 0
+    
+    # 従来のテスト
+    text2 = "正しい日本語の文章です。"
+    corrections2 = engine.check_text(text2)
+    # 基本的には修正が不要
+    assert len(corrections2) == 0 or all(c.confidence < 0.5 for c in corrections2)
 
 
 def test_confidence_scores():

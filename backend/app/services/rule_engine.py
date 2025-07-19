@@ -7,7 +7,6 @@ from enum import Enum
 
 from app.services.grammar_checker import GrammarChecker
 
-
 class RuleCategory(str, Enum):
     GRAMMAR = "grammar"
     REDUNDANCY = "redundancy"
