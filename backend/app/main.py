@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
+from app.api.proofreading import router as proofreading_router
+
 app = FastAPI(
     title="Proofreading API",
     description="Japanese Text Proofreading System API",
@@ -17,6 +19,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Include routers
+app.include_router(proofreading_router)
 
 @app.get("/")
 async def root():

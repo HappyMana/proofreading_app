@@ -1,0 +1,69 @@
+rules:
+  # ら抜き言葉修正
+  ra_nuki:
+    name: "ら抜き言葉修正"
+    category: "grammar"
+    priority: 1
+    patterns:
+      - pattern: "食べれる"
+        replacement: "食べられる"
+        description: "ら抜き言葉"
+      - pattern: "見れる"
+        replacement: "見られる"
+        description: "ら抜き言葉"
+      - pattern: "出れる"
+        replacement: "出られる"
+        description: "ら抜き言葉"
+      - pattern: "来れる"
+        replacement: "来られる"
+        description: "ら抜き言葉"
+
+  # 重複表現修正
+  duplication:
+    name: "重複表現修正"
+    category: "redundancy"
+    priority: 2
+    patterns:
+      - pattern: "頭痛が痛い"
+        replacement: "頭痛がする"
+        description: "重複表現"
+      - pattern: "炎天下の下"
+        replacement: "炎天下"
+        description: "重複表現"
+      - pattern: "後で後悔"
+        replacement: "後悔"
+        description: "重複表現"
+
+  # 表記統一（全角・半角）
+  zenkaku_hankaku:
+    name: "全角半角表記統一"
+    category: "formatting"
+    priority: 3
+    patterns:
+      - pattern: "（"
+        replacement: "("
+        description: "全角括弧を半角に"
+      - pattern: "）"
+        replacement: ")"
+        description: "全角括弧を半角に"
+      - pattern: "１２３４５６７８９０"
+        replacement: "1234567890"
+        description: "全角数字を半角に"
+        type: "regex"
+        regex: "[１２３４５６７８９０]+"
+
+  # 敬語・丁寧語
+  polite:
+    name: "敬語・丁寧語修正"
+    category: "politeness"
+    priority: 4
+    patterns:
+      - pattern: "問題ない"
+        replacement: "問題ありません"
+        description: "丁寧語化"
+      - pattern: "できない"
+        replacement: "できません"
+        description: "丁寧語化"
+      - pattern: "わからない"
+        replacement: "わかりません"
+        description: "丁寧語化"
