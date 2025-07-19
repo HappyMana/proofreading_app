@@ -22,7 +22,6 @@ app.add_middleware(
 # Include routers
 app.include_router(proofreading_router)
 
-
 @app.get("/")
 async def root():
     """Root endpoint"""
