@@ -5,6 +5,7 @@ from pathlib import Path
 from dataclasses import dataclass
 from enum import Enum
 
+from app.services.grammar_checker import GrammarChecker
 
 class RuleCategory(str, Enum):
     GRAMMAR = "grammar"
@@ -51,11 +52,15 @@ class RuleEngine:
     def __init__(self, rules_dir: str = None):
         self.rules: List[Rule] = []
         self.rules_dir = rules_dir or Path(__file__).parent.parent / "rules"
+        self.grammar_checker = GrammarChecker()
         self.load_rules()
     
     def load_rules(self) -> None:
         """ルールファイルを読み込み"""
         rules_path = Path(self.rules_dir)
+        
+        if not rules_path.exists():
+            return
         
         for rule_file in rules_path.glob("*.yml"):
             with open(rule_file, 'r', encoding='utf-8') as f:
@@ -94,9 +99,14 @@ class RuleEngine:
         """テキストを校正チェック"""
         results = []
         
+        # ルールベースチェック
         for rule in self.rules:
             rule_results = self._apply_rule(text, rule)
             results.extend(rule_results)
+        
+        # 文法チェッカーを使用
+        grammar_results = self.grammar_checker.check_grammar(text)
+        results.extend(grammar_results)
         
         return results
     
