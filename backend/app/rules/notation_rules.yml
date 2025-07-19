@@ -1,0 +1,172 @@
+rules:
+  # 数字表記統一
+  number_notation:
+    name: "数字表記統一"
+    category: "formatting"
+    priority: 1
+    patterns:
+      # 全角数字を半角に
+      - pattern: "０"
+        replacement: "0"
+        description: "全角数字を半角に"
+      - pattern: "１"
+        replacement: "1"
+        description: "全角数字を半角に"
+      - pattern: "２"
+        replacement: "2"
+        description: "全角数字を半角に"
+      - pattern: "３"
+        replacement: "3"
+        description: "全角数字を半角に"
+      - pattern: "４"
+        replacement: "4"
+        description: "全角数字を半角に"
+      - pattern: "５"
+        replacement: "5"
+        description: "全角数字を半角に"
+      - pattern: "６"
+        replacement: "6"
+        description: "全角数字を半角に"
+      - pattern: "７"
+        replacement: "7"
+        description: "全角数字を半角に"
+      - pattern: "８"
+        replacement: "8"
+        description: "全角数字を半角に"
+      - pattern: "９"
+        replacement: "9"
+        description: "全角数字を半角に"
+
+  # 記号統一
+  punctuation_notation:
+    name: "記号表記統一"
+    category: "formatting"
+    priority: 2
+    patterns:
+      # 括弧統一
+      - pattern: "（"
+        replacement: "("
+        description: "全角括弧を半角に"
+      - pattern: "）"
+        replacement: ")"
+        description: "全角括弧を半角に"
+      - pattern: "［"
+        replacement: "["
+        description: "全角角括弧を半角に"
+      - pattern: "］"
+        replacement: "]"
+        description: "全角角括弧を半角に"
+      # 感嘆符・疑問符
+      - pattern: "！"
+        replacement: "!"
+        description: "全角感嘆符を半角に"
+      - pattern: "？"
+        replacement: "?"
+        description: "全角疑問符を半角に"
+      # コロン・セミコロン
+      - pattern: "："
+        replacement: ":"
+        description: "全角コロンを半角に"
+      - pattern: "；"
+        replacement: ";"
+        description: "全角セミコロンを半角に"
+
+  # カタカナ長音符統一
+  katakana_notation:
+    name: "カタカナ表記統一"
+    category: "formatting"
+    priority: 3
+    patterns:
+      # 長音符統一（-に統一）
+      - pattern: "コンピューター"
+        replacement: "コンピュータ"
+        description: "長音符統一"
+      - pattern: "システムー"
+        replacement: "システム"
+        description: "語尾長音符削除"
+      - pattern: "データー"
+        replacement: "データ"
+        description: "語尾長音符削除"
+      - pattern: "ユーザー"
+        replacement: "ユーザ"
+        description: "語尾長音符削除"
+      - pattern: "サーバー"
+        replacement: "サーバ"
+        description: "語尾長音符削除"
+
+  # 送り仮名統一
+  okurigana_notation:
+    name: "送り仮名統一"
+    category: "formatting"
+    priority: 4
+    patterns:
+      # 動詞送り仮名
+      - pattern: "行なう"
+        replacement: "行う"
+        description: "送り仮名統一"
+      - pattern: "行なって"
+        replacement: "行って"
+        description: "送り仮名統一"
+      - pattern: "行なった"
+        replacement: "行った"
+        description: "送り仮名統一"
+      - pattern: "受取る"
+        replacement: "受け取る"
+        description: "送り仮名統一"
+      - pattern: "受取って"
+        replacement: "受け取って"
+        description: "送り仮名統一"
+      - pattern: "受取った"
+        replacement: "受け取った"
+        description: "送り仮名統一"
+
+  # 漢数字統一
+  kanji_numbers:
+    name: "漢数字表記統一"
+    category: "formatting"
+    priority: 5
+    patterns:
+      # 一部の漢数字を算用数字に
+      - pattern: "一つ"
+        replacement: "1つ"
+        description: "漢数字を算用数字に"
+        type: "conditional"  # 文脈により判断
+      - pattern: "二つ"
+        replacement: "2つ"
+        description: "漢数字を算用数字に"
+        type: "conditional"
+      - pattern: "三つ"
+        replacement: "3つ"
+        description: "漢数字を算用数字に"
+        type: "conditional"
+      # 年月日の数字
+      - pattern: "平成三十年"
+        replacement: "平成30年"
+        description: "年号の数字を算用数字に"
+
+  # 組織固有表記
+  organization_notation:
+    name: "組織固有表記統一"
+    category: "custom"
+    priority: 6
+    patterns:
+      # サービス名統一
+      - pattern: "ウェブサイト"
+        replacement: "Webサイト"
+        description: "サービス名表記統一"
+      - pattern: "ホームページ"
+        replacement: "Webサイト"
+        description: "サービス名表記統一"
+      - pattern: "ソフトウェア"
+        replacement: "ソフトウェア"
+        description: "正しい表記"
+        type: "check_only"
+      # 技術用語統一
+      - pattern: "データベース"
+        replacement: "データベース"
+        description: "正しい表記"
+        type: "check_only"
+      - pattern: "アプリケーション"
+        replacement: "アプリケーション"
+        description: "正しい表記"
+        type: "check_only"
