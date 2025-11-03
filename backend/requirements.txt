@@ -19,7 +19,7 @@ pandas==2.1.3
 # Japanese NLP
 fugashi==1.3.0
 unidic-lite==1.0.8
-mecab-python3==1.0.6
+mecab-python3==1.0.10
 
 # Utilities
 python-multipart==0.0.6
