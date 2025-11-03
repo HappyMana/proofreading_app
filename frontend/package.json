@@ -23,7 +23,7 @@
     "zustand": "4.4.7",
     "@chakra-ui/react": "2.8.2",
     "@emotion/react": "11.11.1",
-    "@emotion/styled": "11.11.0",
+    "@emotion/styled": "11.14.1",
     "framer-motion": "10.16.5",
     "axios": "1.6.2",
     "socket.io-client": "4.7.4",
